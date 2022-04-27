@@ -32,7 +32,11 @@ img {
     border-radius: 1rem;
 }
 
-.img-container > img {
+.img-container > a {
+    border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.img-container > a > img {
     border-radius: 1rem 1rem 0rem 0rem;
 }
 
