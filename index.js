@@ -42,6 +42,11 @@ function loadMore() {
                 const imgContainer = document.createElement("div");
                 imgContainer.classList.add("img-container");
 
+                // link around image
+                const a = document.createElement("a");
+                a.href = src;
+                a.target = "_blank";
+
                 // image itself
                 const img = document.createElement('img');
                 img.src = src;
@@ -55,7 +60,8 @@ function loadMore() {
                 h4.innerText = `Tags: ${image.social.tags.join(", ")}`;
 
                 // final assembly
-                imgContainer.appendChild(img);
+                a.appendChild(img);
+                imgContainer.appendChild(a);
                 imgContainer.appendChild(h3);
                 imgContainer.appendChild(h4);
                 document.getElementById('image-parent').appendChild(imgContainer);
