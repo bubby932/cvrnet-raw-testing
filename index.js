@@ -69,3 +69,82 @@ function loadMore() {
         })
     });
 }
+
+var id = null;
+document.getElementById("room-search-input").oninput = () => {
+    if(id != null) {
+        clearTimeout(id);
+        id = null;
+    }
+    id = setTimeout(search, 1000);
+}
+
+document.getElementById("room-search-close").onclick = () => {
+    closeRoomSearch();
+}
+
+document.getElementById("room-search-button").onclick = () => {
+    openRoomSearch();
+};
+
+function openRoomSearch() {
+    document.querySelector("body").classList.add("frozen");
+    document.getElementById("room-search-dimmer").classList.remove("hidden");
+    var input = document.getElementById("room-search-input");
+    input.value = "";
+    input.focus();
+}
+
+function closeRoomSearch() {
+    document.querySelector("body").classList.remove("frozen");
+    document.getElementById("room-search-dimmer").classList.add("hidden");
+}
+
+function clearRoomSearch() {
+    var parent = document.getElementById("room-search-parent");
+    while(parent.firstChild)
+        parent.removeChild(parent.firstChild);
+}
+
+function search() {
+    var input = document.getElementById("room-search-input").value;
+    window.fetch(`https://api.compensationvr.tk/api/rooms/search?query=${input}&mode=search`).then((response) => {
+        if(response.status != 200) {
+            response.text().then(text => {
+                console.error(text);
+                console.error(response.status);
+            });
+            closeRoomSearch();
+            alert("Failed to search rooms. Please try again later.");
+            return;
+        }
+
+        response.json().then(data => {
+            // clear old results
+            var parent = document.getElementById("room-search-parent");
+            while(parent.firstChild)
+                parent.removeChild(parent.firstChild);
+
+            data.forEach(room => {
+                // parent
+                const div = document.createElement("div");
+                div.classList.add("room-search-item");
+
+                // name
+                const h4 = document.createElement("h4");
+                h4.innerText = room.name;
+
+                // description
+                const p = document.createElement("p");
+                p.innerText = room.description;
+
+                // final assembly
+                div.appendChild(h4);
+                div.appendChild(p);
+
+                // insert
+                parent.appendChild(div);
+            });
+        });
+    });
+}

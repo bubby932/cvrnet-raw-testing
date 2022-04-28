@@ -5,17 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <script src="./index.js"></script>
+    <script src="./index.js" defer></script>
     <title>Low Quality CVRNet - Home</title>
 </head>
 <body>
+    <div class="search-dimmer hidden" id="room-search-dimmer">
+        <div class="highlight" id="search-box">
+            <h2>Room Search</h2> 
+            <input id="room-search-input">
+            <button id="room-search-close">&times;</button>
+            <div id="room-search-parent">
+                
+            </div>
+        </div>
+    </div>
+
     <header>
         <h1>Compensation VR</h1>
         <div>
             <a class="header_button hide_link_styles" href="#">Home</a>
+            <button class="header_button hide_link_styles" id="room-search-button">Search Rooms</button>
         </div>
         <hr>
     </header>
+
 
     <!-- Actual body -->
 
